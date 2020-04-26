@@ -1,0 +1,231 @@
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+
+    <link rel="stylesheet" href="./components/chatMessage/messageBox/index.css">
+
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+    <script src="/socket.io/socket.io.js"></script>
+
+</head>
+
+
+<body>
+
+    <div id="MainMenu">
+
+        <i id="backBtn" class="fas fa-arrow-left"></i>
+
+        <b id="appName">Chat App</b>
+
+    </div>
+
+    <div id="chatArea"></div>
+
+    <div id="userInput">
+
+        <form id="userInputForm" autocomplete="off">
+
+            <input type="text" id="userInputMessage" placeholder="Enter Something..." required />
+            <button id="sendMessage">Send</button>
+
+        </form>
+
+    </div>
+
+
+    <script type="module">
+
+        function getMeridian(currentTime) {
+
+            if (currentTime > 12) {
+                return 'PM';
+            } else {
+                return 'AM';
+            }
+
+
+        }
+
+        var socket = io({
+            autoconnect: false
+        });
+
+        var username = prompt("enter you username");
+
+        var person = prompt("enter the other's username");
+
+
+        connectTo(person);
+
+        function connectTo(usr) {
+
+            console.log(usr);
+
+            startChat(username, usr);
+
+        }
+
+        function startChat(me, you) {
+
+            var currentChat = {
+                me,
+                you,
+                time: `${new Date().getHours()}:${new Date().getMinutes()} ${getMeridian(new Date().getHours())}`
+            };
+
+            socket.open();
+
+            socket.emit("chatInfo", currentChat);
+
+            document.querySelector("#userInputForm").addEventListener('submit', e => {
+
+                e.preventDefault();
+
+                var userInput = document.querySelector("#userInputMessage");
+
+
+                var messageData = {
+
+                    msg: userInput.value,
+                    user: username,
+                    person: person,
+                    time: `${new Date().getHours()}:${new Date().getMinutes()} ${getMeridian(new Date().getHours())}`
+
+                };
+
+                console.log(messageData);
+
+                socket.emit("message", messageData);
+
+                userInput.value = "";
+
+
+            });
+
+            socket.on("message", msg => {
+
+
+                var chatMessage = document.createElement("div");
+                var messageArea = document.createElement("p");
+                var chatPerson = document.createElement("span");
+                var time = document.createElement("span");
+                var currentTime = document.createElement("time");
+                var message = document.createElement("p");
+
+                //
+
+
+                chatMessage.classList.add("chatMessage");
+
+
+                if (msg.user === username) {
+
+                    chatMessage.classList.add("user");
+
+                } else {
+                    chatMessage.classList.add("person");
+                }
+
+
+
+
+                messageArea.classList.add("messageArea");
+
+                chatPerson.classList.add("chatPerson");
+
+                time.classList.add("time");
+
+                message.classList.add("message");
+
+                //
+
+                currentTime.innerHTML = msg.time;
+
+                time.appendChild(currentTime);
+
+                //
+
+
+                chatPerson.innerHTML = msg.user;
+
+                //
+
+                messageArea.appendChild(chatPerson);
+
+                messageArea.appendChild(time);
+
+                //
+
+
+                message.innerHTML = msg.msg;
+
+
+                //
+
+
+                chatMessage.appendChild(messageArea);
+
+                chatMessage.appendChild(message);
+
+
+                //
+
+
+                const chatArea = document.querySelector("#chatArea");
+
+
+                chatArea.appendChild(chatMessage);
+
+
+                chatArea.scrollTo(0, chatArea.scrollHeight);
+
+                //
+
+                if (msg.msg_seen_id != undefined) {
+
+                    setTimeout(() => {
+
+                        socket.emit("msgDelivered", {
+                            user: username,
+                            msg_seen_id: msg.msg_seen_id
+                        });
+
+                    }, 10000);
+
+                    let group = `${[username, person].sort().join('')}`;
+
+                    import('./store_chat.js')
+                        .then(op => {
+
+                            op.storeChatMessage(group, msg);
+
+                        });
+
+
+
+
+
+
+
+
+                }
+
+
+
+            });
+
+
+        }
+
+
+    </script>
+
+</body>
+
+
+</html>

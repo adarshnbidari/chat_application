@@ -1,0 +1,105 @@
+body{
+    margin:0;
+    overflow-y:hidden;
+}
+
+*{
+    box-sizing: initial;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#MainMenu{
+    display:-webkit-flex;
+    flex:1;
+    align-items:center;
+    justify-content: center;
+    flex-direction:row;
+    width:100%;
+    height:10%;
+    background-color:snow;
+    box-shadow:0 2px 5px 5px lightgrey;
+}
+
+
+#backBtn{
+    position: absolute;
+    font-size:25px;
+    cursor:pointer;
+    left:2%;
+}
+
+#backBtn:hover{
+    opacity:0.6;
+}
+
+#chatArea{
+    overflow-y:scroll;
+    width:100%;
+    height:75%;
+    background-color:aqua;
+
+}
+
+
+
+#userInput{
+
+    width:100%;
+    height:15%;
+    position: absolute;
+    background-color:snow;
+    bottom:10;
+} 
+
+
+#userInputForm{
+
+    display:-webkit-flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+    width:80%;
+    height:100%;
+    margin-left:10%;
+    background-color:snow;
+    z-index:999;
+
+}
+
+
+#userInputMessage{
+
+    display:block;
+    width:65%;
+    padding:10px;
+    border:1px solid lightgrey;
+    border-radius:5px 0 0 5px;
+    outline-color:aqua;
+    caret-color:grey;
+    color:rgba(0, 0, 0, 0.658);
+
+}
+
+
+#userInputMessage::placeholder{
+
+    padding:10px;
+    color:rgba(110, 90, 90, 0.466);
+
+}
+
+
+#sendMessage{
+    padding:10px;
+    border:1px solid lightgrey;
+    background-color:lightgrey;
+    color:white;
+    border-radius:0 5px 5px 0;
+    outline-color:lightgrey;
+}
+
+
+#sendMessage:hover{
+    cursor:pointer;
+    opacity:0.8;
+}

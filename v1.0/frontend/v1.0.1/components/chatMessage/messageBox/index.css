@@ -1,0 +1,196 @@
+body{
+    margin:0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.person{
+
+    border-radius:5px;
+
+    border-top-left-radius: initial;
+
+    float:left;
+
+    clear:both;
+
+    margin-left:5%;
+
+}
+
+.person::before{
+
+    content:'';
+
+    width:0;
+    height:0;
+
+    border-top:15px solid rgba(92, 32, 255, 0.781);
+
+    border-bottom:15px solid transparent;
+
+    border-left:15px solid transparent;
+
+    border-right:15px solid rgba(92, 32, 255, 0.781);
+
+    position: absolute;
+    
+    right:100%;
+}
+
+
+
+.user{
+    
+    border-radius:5px;
+
+    border-top-right-radius:initial;
+
+    
+    float:right;
+
+    clear:both;
+
+    margin-right:5%;
+
+}
+
+.user::before{
+
+    content:'';
+
+    width:0;
+    height:0;
+
+    border-top:15px solid rgba(92, 32, 255, 0.781);
+
+    border-bottom:15px solid transparent;
+
+    border-left:15px solid rgba(92, 32, 255, 0.781);
+
+    border-right:15px solid transparent;
+
+    position: absolute;
+    
+    left:100%;
+
+}
+
+.messageArea{  
+    padding:8px;
+    color:white;
+}
+
+.message{
+    padding:10px;
+    color:white;
+}
+
+
+.chatPerson{
+    float:left;
+    color:rgb(0, 255, 0);
+}
+
+.time{
+    float:right;
+    color:rgb(0, 255, 0);
+}
+
+.chatMessage{
+
+
+    margin-top:50px;
+    
+    width:20%;
+
+    min-height:60px;
+
+    max-height:200px;
+
+    word-wrap: break-word;
+
+    box-sizing: border-box;
+    
+    background-color:rgba(92, 32, 255, 0.781);
+    position: relative;
+
+}
+
+
+.chatMessage:last-child{
+    margin-bottom:50px;
+}
+
+@media screen and (max-width:320px){
+
+    .chatMessage{
+        width:85%;
+    }
+
+    .person{
+        margin-left:10%;
+    }
+
+    .user{
+        margin-right:10%;
+    }
+
+
+}
+
+
+@media screen and (min-width:321px) and (max-width:375px){
+
+    .chatMessage{
+        width:85%;
+
+    }
+
+    .person{
+        margin-left:10%;
+    }
+
+    .user{
+        margin-right:10%;
+    }
+
+
+}
+
+
+@media screen and (min-width:376px) and (max-width:425px){
+
+    .chatMessage{
+        width:85%;
+
+    }
+
+    .person{
+        margin-left:10%;
+    }
+
+    .user{
+        margin-right:10%;
+    }
+
+}
+
+
+@media screen and (min-width:426px) and (max-width:768px){
+
+    .chatMessage{
+        width:85%;
+
+    }
+
+    .person{
+        margin-left:10%;
+    }
+
+    .user{
+        margin-right:10%;
+    }
+
+
+
+}
